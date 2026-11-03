@@ -1,0 +1,11 @@
+<%@ page import="br.com.habittracker.util.Html" %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= Html.esc((String) request.getAttribute("titulo")) %> - Habit Tracker</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+</head>
+<body>
+<main class="app">

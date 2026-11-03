@@ -1,0 +1,102 @@
+:root {
+    --fundo: #fdfcf9;
+    --texto: #1f2937;
+    --texto-suave: #55655a;
+    --borda: #d7ded2;
+    --verde: #2b4735;
+    --ambar: #d97706;
+    --verde-link: #2b4735;
+    --erro: #b91c1c;
+    --ok-fundo: #ecfdf5;
+    --ok-texto: #065f46;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 6rem;
+    min-height: 100vh;
+}
+
+h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.1rem; margin: 0 0 .25rem; }
+
+a { color: var(--verde-link); }
+
+/* Cabeçalhos */
+.cabecalho-auth { margin: 1.5rem 0 1.5rem; }
+.cabecalho-auth p { margin: 0; color: var(--texto-suave); }
+
+.topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+.topo .data { margin: 0; color: var(--texto-suave); font-size: .9rem; }
+.topo .data::first-letter { text-transform: uppercase; }
+
+/* Formulários */
+.campo { margin-bottom: 1rem; }
+label { display: block; font-weight: 600; margin-bottom: .25rem; }
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: .75rem .85rem;
+    font-size: 1rem;
+    border: 1px solid #9ca3af;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--texto);
+}
+input[aria-invalid="true"] { border-color: var(--erro); }
+
+:focus-visible { outline: 3px solid var(--ambar); outline-offset: 2px; }
+
+.dica { margin: .25rem 0 0; font-size: .85rem; color: var(--texto-suave); }
+.erro { margin: .25rem 0 0; font-size: .9rem; color: var(--erro); }
+
+.alerta, .ok { padding: .75rem 1rem; border-radius: 10px; margin: 0 0 1rem; }
+.alerta { background: #fef2f2; color: var(--erro); border: 1px solid #fecaca; }
+.ok { background: var(--ok-fundo); color: var(--ok-texto); border: 1px solid #a7f3d0; }
+
+/* Botões */
+.btn {
+    display: block; width: 100%;
+    padding: .85rem 1rem;
+    font-size: 1rem; font-weight: 700;
+    background: var(--verde); color: #fff;
+    border: 0; border-radius: 10px; cursor: pointer;
+}
+.btn:hover { filter: brightness(.95); }
+
+.btn-sec {
+    padding: .45rem .9rem; font-size: .9rem;
+    background: transparent; color: var(--texto);
+    border: 1px solid #9ca3af; border-radius: 8px; cursor: pointer;
+}
+.btn-link { display: block; text-align: center; margin-top: 1rem; }
+
+.troca { text-align: center; margin-top: 1.5rem; color: var(--texto-suave); }
+
+/* Lista de hábitos */
+.lista { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
+.card { background: #fff; border: 1px solid var(--borda); border-radius: 14px; padding: 1rem; }
+.card p { margin: 0; color: var(--texto-suave); }
+
+.vazio { text-align: center; color: var(--texto-suave); margin-top: 3rem; }
+
+.fab {
+    position: fixed; right: max(1.25rem, calc(50% - 240px + 1.25rem)); bottom: 1.5rem;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--verde); color: #fff;
+    font-size: 2rem; line-height: 1; text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+}
