@@ -100,3 +100,22 @@ input[aria-invalid="true"] { border-color: var(--erro); }
     font-size: 2rem; line-height: 1; text-decoration: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
 }
+
+/* ---- Incremento 2: concluir hábito ---- */
+.card { display: flex; align-items: center; gap: 1rem; }
+.card-info { flex: 1; min-width: 0; }
+.card.feito { background: #eef2ea; }
+
+.form-concluir { margin: 0; }
+.check {
+    flex: none;
+    width: 44px; height: 44px; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--verde); border-radius: 50%;
+    background: #fff; color: #fff;
+    font-size: 1.4rem; line-height: 1; cursor: pointer;
+}
+.check:hover { background: #eef2ea; }
+.check.feito { background: var(--verde); cursor: default; }
+
+.resumo { margin: 0 0 1rem; color: var(--texto-suave); font-weight: 600; }

@@ -14,7 +14,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-/** US02 - Tela "Meus Hábitos" (somente os hábitos do usuário logado). */
+/** US02 e US03 - Tela "Meus Hábitos" (só os hábitos do usuário logado, com o status de hoje). */
 @WebServlet("/habitos")
 public class HabitosServlet extends HttpServlet {
 
@@ -26,12 +26,13 @@ public class HabitosServlet extends HttpServlet {
         int usuarioId = Sessao.usuarioId(req); // o filtro garante que está logado
         LocalDateTime agora = LocalDateTime.now(FUSO);
 
-        req.setAttribute("habitos", habitoDAO.listarPorUsuario(usuarioId));
+        req.setAttribute("habitos", habitoDAO.listarPorUsuario(usuarioId, agora.toLocalDate()));
         req.setAttribute("saudacao", saudacao(agora.getHour()));
         req.setAttribute("dataHoje", agora.format(
                 DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", Locale.forLanguageTag("pt-BR"))));
         req.setAttribute("nomeUsuario", Sessao.usuarioNome(req));
         req.setAttribute("criado", "1".equals(req.getParameter("criado")));
+        req.setAttribute("resultado", req.getParameter("resultado"));
         req.getRequestDispatcher("/WEB-INF/views/habitos.jsp").forward(req, resp);
     }
 

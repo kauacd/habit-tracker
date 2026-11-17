@@ -3,9 +3,11 @@ package br.com.habittracker.dao;
 import br.com.habittracker.model.Habito;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,17 +26,26 @@ public class HabitoDAO {
         }
     }
 
-    /** Lista SOMENTE os hábitos do usuário informado (RN05). */
-    public List<Habito> listarPorUsuario(int usuarioId) {
-        String sql = "SELECT id, usuario_id, nome, descricao FROM habitos WHERE usuario_id = ? ORDER BY id";
+    /**
+     * Lista SOMENTE os hábitos do usuário informado (RN05), já indicando
+     * quais foram concluídos na data "hoje" (US03).
+     */
+    public List<Habito> listarPorUsuario(int usuarioId, LocalDate hoje) {
+        String sql = "SELECT h.id, h.usuario_id, h.nome, h.descricao, (c.id IS NOT NULL) AS concluido_hoje "
+                   + "FROM habitos h "
+                   + "LEFT JOIN conclusoes c ON c.habito_id = h.id AND c.data = ? "
+                   + "WHERE h.usuario_id = ? ORDER BY h.id";
         List<Habito> lista = new ArrayList<>();
         try (Connection con = ConnectionFactory.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, usuarioId);
+            ps.setDate(1, Date.valueOf(hoje));
+            ps.setInt(2, usuarioId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    lista.add(new Habito(rs.getInt("id"), rs.getInt("usuario_id"),
-                            rs.getString("nome"), rs.getString("descricao")));
+                    Habito h = new Habito(rs.getInt("id"), rs.getInt("usuario_id"),
+                            rs.getString("nome"), rs.getString("descricao"));
+                    h.setConcluidoHoje(rs.getBoolean("concluido_hoje"));
+                    lista.add(h);
                 }
             }
         } catch (SQLException e) {

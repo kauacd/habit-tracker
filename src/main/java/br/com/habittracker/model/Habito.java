@@ -5,6 +5,7 @@ public class Habito {
     private int usuarioId;
     private String nome;
     private String descricao;
+    private boolean concluidoHoje;
 
     public Habito() { }
 
@@ -23,4 +24,6 @@ public class Habito {
     public void setNome(String nome) { this.nome = nome; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
+    public boolean isConcluidoHoje() { return concluidoHoje; }
+    public void setConcluidoHoje(boolean concluidoHoje) { this.concluidoHoje = concluidoHoje; }
 }
