@@ -12,6 +12,21 @@
         }
     }
 
+    // Atualiza a bolinha de hoje e o "x/7 dias — y%" do cartão (delta = +1 ou -1)
+    function ajustarCartao(card, delta) {
+        var ponto = card.querySelector('.semana .dia:last-child .ponto');
+        if (ponto) {
+            ponto.classList.toggle('feito', delta > 0);
+        }
+        var prop = card.querySelector('.prop');
+        if (prop) {
+            var n = Number(prop.getAttribute('data-feitos')) + delta;
+            prop.setAttribute('data-feitos', String(n));
+            prop.querySelector('.n').textContent = String(n);
+            prop.querySelector('.pct').textContent = String(Math.floor(n * 100 / 7));
+        }
+    }
+
     document.addEventListener('submit', function (evento) {
         var form = evento.target;
         if (!form.classList || !form.classList.contains('form-concluir')) {
@@ -31,6 +46,7 @@
         form.replaceWith(marca);
         card.classList.add('feito');
         ajustarContador(1);
+        ajustarCartao(card, 1);
 
         // 2) confirma no servidor
         fetch(form.action, {
@@ -50,6 +66,7 @@
             marca.replaceWith(form);
             card.classList.remove('feito');
             ajustarContador(-1);
+            ajustarCartao(card, -1);
             alert('Não foi possível concluir o hábito. Tente de novo.');
         });
     });

@@ -6,9 +6,9 @@
 
     <groupId>br.com.habittracker</groupId>
     <artifactId>habit-tracker</artifactId>
-    <version>2.0-INCREMENTO2</version>
+    <version>3.0-INCREMENTO3</version>
     <packaging>war</packaging>
-    <name>Habit Tracker - Incremento 2</name>
+    <name>Habit Tracker - Incremento 3</name>
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
@@ -42,7 +42,7 @@
     </dependencies>
 
     <build>
-        <finalName>habit-tracker-v2</finalName>
+        <finalName>habit-tracker-v3</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

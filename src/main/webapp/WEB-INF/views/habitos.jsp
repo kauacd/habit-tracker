@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.List, br.com.habittracker.model.Habito, br.com.habittracker.util.Html" %>
+<%@ page import="java.util.List, java.util.Map, br.com.habittracker.model.Habito, br.com.habittracker.service.DiaHabito, br.com.habittracker.service.Resumo7Dias, br.com.habittracker.util.Html" %>
 <%
     request.setAttribute("titulo", "Meus Hábitos");
     List<Habito> habitos = (List<Habito>) request.getAttribute("habitos");
+    Map<Integer, Resumo7Dias> resumos = (Map<Integer, Resumo7Dias>) request.getAttribute("resumos");
     boolean criado = Boolean.TRUE.equals(request.getAttribute("criado"));
     String resultado = (String) request.getAttribute("resultado");
     String ctx = request.getContextPath();
@@ -36,11 +37,17 @@
     <% } else { %>
         <p class="resumo"><span id="qtd-feitos"><%= feitos %></span> de <%= habitos.size() %> concluídos hoje</p>
         <ul class="lista">
-        <% for (Habito h : habitos) { %>
+        <% for (Habito h : habitos) { Resumo7Dias r = resumos.get(h.getId()); %>
             <li class="card<%= h.isConcluidoHoje() ? " feito" : "" %>">
                 <div class="card-info">
-                    <h2><%= Html.esc(h.getNome()) %></h2>
+                    <h2><a href="<%= ctx %>/habitos/historico?id=<%= h.getId() %>"><%= Html.esc(h.getNome()) %></a></h2>
                     <p><%= Html.esc(h.getDescricao()) %></p>
+                    <div class="semana" aria-hidden="true">
+                    <% for (DiaHabito d : r.getDias()) { %>
+                        <span class="dia"><span class="ponto<%= d.isConcluido() ? " feito" : "" %>" title="<%= d.getTitulo() %>"></span><span class="letra"><%= d.getInicial() %></span></span>
+                    <% } %>
+                    </div>
+                    <p class="prop" data-feitos="<%= r.getConcluidos() %>"><span class="n"><%= r.getConcluidos() %></span>/7 dias &mdash; <span class="pct"><%= r.getPercentual() %></span>%</p>
                 </div>
                 <% if (h.isConcluidoHoje()) { %>
                     <span class="check feito" role="img" aria-label="Concluído hoje">&#10003;</span>
@@ -57,5 +64,6 @@
     <% } %>
 
     <a class="fab" href="<%= ctx %>/habitos/novo" aria-label="Adicionar hábito" title="Adicionar hábito">+</a>
+<%@ include file="/WEB-INF/views/_nav.jspf" %>
     <script src="<%= ctx %>/js/app.js" defer></script>
 <%@ include file="/WEB-INF/views/_rodape.jspf" %>

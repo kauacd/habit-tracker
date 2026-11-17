@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /** Bloqueia as telas internas para quem não fez login (US07). */
-@WebFilter(urlPatterns = {"/habitos", "/habitos/*", "/logout"})
+@WebFilter(urlPatterns = {"/habitos", "/habitos/*", "/logout", "/progresso"})
 public class AutenticacaoFilter implements Filter {
 
     @Override

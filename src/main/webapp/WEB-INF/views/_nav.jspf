@@ -1,0 +1,9 @@
+<%@ page pageEncoding="UTF-8" %>
+<%
+    String ctxNav = request.getContextPath();
+    String abaNav = (String) request.getAttribute("aba");
+%>
+    <nav class="abas" aria-label="Navegação principal">
+        <a href="<%= ctxNav %>/habitos" class="<%= "habitos".equals(abaNav) ? "ativa" : "" %>"<%= "habitos".equals(abaNav) ? " aria-current=\"page\"" : "" %>>Hábitos</a>
+        <a href="<%= ctxNav %>/progresso" class="<%= "progresso".equals(abaNav) ? "ativa" : "" %>"<%= "progresso".equals(abaNav) ? " aria-current=\"page\"" : "" %>>Progresso</a>
+    </nav>
